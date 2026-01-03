@@ -1,7 +1,6 @@
 // components/Layout.tsx
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
-// import Navbar from "./Navbar";
 
 export default function Layout() {
   return (
