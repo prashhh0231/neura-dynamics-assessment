@@ -19,14 +19,22 @@ export default function Navbar() {
             to="/"
             className={({ isActive }) =>
               `hover:text-primary ${
-                isActive ? "text-primary font-medium" : "text-gray-600"
+                isActive ? "text-primary font-medium underline" : "text-primary"
               }`
             }
           >
             Dashboard
           </NavLink>
-          {/* Uncomment when adding routes */}
-          {/* <NavLink to="/favorites">Favorites</NavLink> */}
+          <NavLink
+            to="/favorites"
+            className={({ isActive }) =>
+              `hover:text-primary ${
+                isActive ? "text-primary font-medium underline" : "text-primary"
+              }`
+            }
+          >
+            Favourite
+          </NavLink>
         </div>
       </div>
     </nav>

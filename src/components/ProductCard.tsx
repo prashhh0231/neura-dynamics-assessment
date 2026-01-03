@@ -1,7 +1,7 @@
 import { Heart } from "lucide-react";
 import { useAppDispatch } from "../hooks/useAppDispatch";
 import { useAppSelector } from "../hooks/useAppSelector";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 
@@ -24,6 +24,8 @@ export function ProductCard({
   rating,
 }: ProductCardProps) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   //   const favorites = useAppSelector((state) => state.favorites.items)
   //   const isFavorite = favorites.includes(id)
   const isFavorite = false;
@@ -35,14 +37,21 @@ export function ProductCard({
     // }
   };
 
+  const handleProductClick = () => {
+    navigate(`/product/${id}`);
+  };
+
   return (
-    <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+    <Card
+      onClick={handleProductClick}
+      className="h-full overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+    >
       <CardContent className="p-4 flex flex-col h-full">
-        <div className="relative w-full h-48 mb-4 bg-muted rounded-lg overflow-hidden">
+        <div className="relative w-full h-64 mb-4 bg-muted rounded-lg overflow-hidden">
           <img
             src={image || "/placeholder.svg"}
             alt={title}
-            className="object-contain p-2"
+            className="object-center p-2"
           />
         </div>
         <h3 className="font-semibold text-sm line-clamp-2 mb-2">{title}</h3>

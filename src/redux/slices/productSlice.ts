@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchProductsApi } from "../../api/api";
+import { fetchProductsApi, fetchSingleProductsApi } from "../../api/api";
 import type { ProductState } from "./product.types";
 
 const initialState: ProductState = {
   productList: [],
+  productDetails: null,
   loading: false,
   error: null,
 };
@@ -16,7 +17,20 @@ export const fetchProducts = createAsyncThunk(
       const response = await fetchProductsApi();
       return response;
     } catch (error: any) {
-      console.log("forgotPassword errors", error.response);
+      console.log("fetch product list errors", error.response);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const fetchSingleProducts = createAsyncThunk(
+  "products/fetchSingle",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await fetchSingleProductsApi(id);
+      return response;
+    } catch (error: any) {
+      console.log("fetch product details errors", error.response);
       return rejectWithValue(error.response.data);
     }
   }
@@ -45,6 +59,15 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.productList = action.payload;
+      });
+    builder
+      .addCase(fetchSingleProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchSingleProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.productDetails = action.payload;
       });
   },
 });

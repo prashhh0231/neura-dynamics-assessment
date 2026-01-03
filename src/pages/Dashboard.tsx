@@ -5,12 +5,11 @@ import { useAppSelector } from "../hooks/useAppSelector";
 import { Input } from "../components/ui/input";
 import { Card, CardDescription, CardTitle } from "../components/ui/card";
 import { ProductCard } from "../components/ProductCard";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const dispatch = useAppDispatch();
   const { productList } = useAppSelector((s) => s.products);
-
-  console.log("products", productList);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -24,7 +23,7 @@ export default function Dashboard() {
         </p>
         <Input placeholder="Search product..." className="my-4" />
 
-        <div className="my-4 grid grid-cols-4 gap-2">
+        <div className="my-4 grid md:grid-cols-2 lg:grid-cols-4 gap-2">
           {productList?.map((item) => {
             return (
               <ProductCard
