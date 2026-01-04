@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { useAppDispatch } from "../hooks/useAppDispatch";
 import { fetchSingleProducts } from "../redux/slices/productSlice";
@@ -10,10 +10,6 @@ import { Spinner } from "../components/ui/spinner";
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-
-  //   const products = useAppSelector((state) => state.products.items);
-  //   const favorites = useAppSelector((state) => state.products.favorites);
-
   const { productDetails, loading } = useAppSelector((s) => s.products);
 
   useEffect(() => {
