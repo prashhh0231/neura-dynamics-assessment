@@ -4,6 +4,10 @@ import { useAppSelector } from "../hooks/useAppSelector";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
+import {
+  addInFavourite,
+  removeFromFavourite,
+} from "../redux/slices/favourite/favouriteSlice";
 
 interface ProductCardProps {
   id: number;
@@ -26,15 +30,15 @@ export function ProductCard({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  //   const favorites = useAppSelector((state) => state.favorites.items)
-  //   const isFavorite = favorites.includes(id)
-  const isFavorite = false;
+  const favorites = useAppSelector((state) => state.favourite.favProductList);
+  const isFavorite = id != null && favorites.includes(id);
+
   const handleFavoriteToggle = () => {
-    // if (isFavorite) {
-    //   dispatch(removeFavorite(id))
-    // } else {
-    //   dispatch(addFavorite(id))
-    // }
+    if (!isFavorite) {
+      dispatch(addInFavourite(id));
+    } else {
+      dispatch(removeFromFavourite(id));
+    }
   };
 
   const handleProductClick = () => {
@@ -68,10 +72,10 @@ export function ProductCard({
             size="icon"
             variant="ghost"
             onClick={(e) => {
-              e.preventDefault();
+              e.stopPropagation();
               handleFavoriteToggle();
             }}
-            className={isFavorite ? "text-red-500" : ""}
+            className={isFavorite ? "text-red-500 hover:text-red-500" : ""}
           >
             <Heart fill={isFavorite ? "currentColor" : "none"} size={20} />
           </Button>

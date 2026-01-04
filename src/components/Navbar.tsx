@@ -11,7 +11,7 @@ export default function Navbar() {
             `font-bold text-xl ${isActive ? "text-primary" : "text-gray-700"}`
           }
         >
-          Logo
+          App Logo
         </NavLink>
 
         <div className="ml-auto flex gap-4">
