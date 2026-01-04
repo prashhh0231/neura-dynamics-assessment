@@ -28,7 +28,9 @@ export default function Dashboard() {
   }, [productList]);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    if (!loading) {
+      dispatch(fetchProducts());
+    }
   }, []);
 
   const filteredProducts = useMemo(() => {

@@ -23,7 +23,7 @@ export default function Navbar() {
               }`
             }
           >
-            Dashboard
+            Product list
           </NavLink>
           <NavLink
             to="/favorites"
